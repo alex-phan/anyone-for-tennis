@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace AnyoneForTennis.Data.Migrations
+namespace TennisCourtMembershipSoft.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

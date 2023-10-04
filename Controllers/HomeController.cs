@@ -1,8 +1,8 @@
-﻿using AnyoneForTennis.Models;
+﻿using TennisCourtMembershipSoft.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace AnyoneForTennis.Controllers
+namespace TennisCourtMembershipSoft.Controllers
 {
     public class HomeController : Controller
     {
