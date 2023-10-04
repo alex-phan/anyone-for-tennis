@@ -1,4 +1,4 @@
-namespace AnyoneForTennis.Models
+namespace TennisCourtMembershipSoft.Models
 {
     public class ErrorViewModel
     {
