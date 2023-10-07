@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Identity;
 namespace AnyoneForTennis.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class RoleController : Controller
+    public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public RoleController(RoleManager<IdentityRole> roleManager)
+        public RolesController(RoleManager<IdentityRole> roleManager)
         {
               _roleManager = roleManager;
         }

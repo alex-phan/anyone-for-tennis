@@ -10,5 +10,6 @@ namespace AnyoneForTennis.Data
             : base(options)
         {
         }
+        public DbSet<AnyoneForTennis.Models.Schedule> Schedule { get; set; } = default!;
     }
 }
