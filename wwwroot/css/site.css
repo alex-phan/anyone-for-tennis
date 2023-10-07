@@ -20,3 +20,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+textarea.form-control {
+  min-height: 100px;
+}

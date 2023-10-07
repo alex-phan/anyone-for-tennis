@@ -14,34 +14,38 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="EventName" class="control-label"></label>
+            <div class="form-groups mb-3">
+                <label asp-for="EventName" class="form-label"></label>
                 <input asp-for="EventName" class="form-control" />
                 <span asp-validation-for="EventName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EventDate" class="control-label"></label>
-                <input asp-for="EventDate" class="form-control" />
+            <div class="form-group mb-3">
+                <label asp-for="EventDate" class="form-label"></label>
+                <input asp-for="EventDate"
+                       value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")"
+                       max="@DateTime.Now.AddYears(20).ToString("yyyy-MM-ddThh:mm")"
+                       min="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")"
+                       class="form-control" />
                 <span asp-validation-for="EventDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EventLocation" class="control-label"></label>
+            <div class="form-group mb-3">
+                <label asp-for="EventLocation" class="form-label"></label>
                 <input asp-for="EventLocation" class="form-control" />
                 <span asp-validation-for="EventLocation" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EventDescription" class="control-label"></label>
-                <input asp-for="EventDescription" class="form-control" />
+            <div class="form-group mb-3">
+                <label asp-for="EventDescription" class="form-label"></label>
+                <textarea asp-for="EventDescription" class="form-control"></textarea>
                 <span asp-validation-for="EventDescription" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-floating mt-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
+<div class="mt-3">
     <a asp-action="Index">Back to List</a>
 </div>
 

@@ -22,35 +22,35 @@
             </div>*@
 
             @*Start custom user data*@
-            <div class="form-floating mb-3">
-                <input asp-for="Input.FirstName" class="form-control" placeholder="John" />
+            <div class="form-group mb-3">
                 <label asp-for="Input.FirstName" class="form-label"></label>
+                <input asp-for="Input.FirstName" class="form-control" placeholder="John" />
                 <span asp-validation-for="Input.FirstName" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.LastName" class="form-control" placeholder="Smith" />
+            <div class="form-group mb-3">
                 <label asp-for="Input.LastName" class="form-label"></label>
+                <input asp-for="Input.LastName" class="form-control" placeholder="Smith" />
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3">
+            <div class="form-group mb-3">
+                <label asp-for="Input.DateOfBirth" class="form-label"></label>
                 <input asp-for="Input.DateOfBirth"
                        value="@DateTime.Now.ToString("yyyy-MM-dd")"
-                       max="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")"
-                       min="@DateTime.Now.AddYears(-100).ToString("yyyy-MM-ddThh:mm")"
+                       max="@DateTime.Now.ToString("yyyy-MM-dd")"
+                       min="@DateTime.Now.AddYears(-100).ToString("yyyy-MM-dd")"
                        class="form-control" />
-                <label asp-for="Input.DateOfBirth" class="form-label"></label>
                 <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3">
+            <div class="form-group mb-3">
+                <label asp-for="Input.Gender" class="form-label"></label>
                 <select asp-for="Input.Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-select">
                     <option disabled selected>Selected</option>
                 </select>
-                <label asp-for="Input.Gender" class="form-label"></label>
                 <span asp-validation-for="Input.Gender" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3">
-                <textarea asp-for="Input.Biography" class="form-control"></textarea>
+            <div class="form-group mb-3">
                 <label asp-for="Input.Biography" class="form-label"></label>
+                <textarea asp-for="Input.Biography" class="form-control"></textarea>
                 <span asp-validation-for="Input.Biography" class="text-danger"></span>
             </div>
             @*End custom user data*@
