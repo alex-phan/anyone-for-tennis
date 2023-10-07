@@ -26,15 +26,26 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Schedules" asp-action="Index">Schedules</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Coaches" asp-action="Index">Coaches</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             if (User.IsInRole("Admin"))
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Roles" asp-action="Index">Roles</a>
-                                </li>
+                                <div class="dropdown">
+                                    <button class="nav-item nav-link text-dark btn btn-link" type="button" id="manage" data-bs-toggle="dropdown" aria-expanded="false">Manage</button>
+                                    <ul class="dropdown-menu" aria-labelledby="manage">
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Members" asp-action="Index">Members</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Roles" asp-action="Index">Roles</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             }
                         }
                     </ul>

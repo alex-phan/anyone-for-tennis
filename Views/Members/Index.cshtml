@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<ApplicationUser>
+
+@{
+	ViewData["Title"] = "Members";
+}
+
+<h1>Members</h1>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>@Html.DisplayNameFor(model => model.Id)</th>
+			<th>@Html.DisplayNameFor(model => model.FirstName)</th>
+			<th>@Html.DisplayNameFor(model => model.LastName)</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var member in Model)
+		{
+			<tr>
+				<td>@Html.DisplayFor(item => member.Id)</td>
+				<td>@Html.DisplayFor(item => member.FirstName)</td>
+				<td>@Html.DisplayFor(item => member.LastName)</td>
+			</tr>
+		}
+	</tbody>
+</table>

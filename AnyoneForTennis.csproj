@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Archived\**" />
     <Compile Remove="Archive\**" />
+    <Content Remove="Archived\**" />
     <Content Remove="Archive\**" />
+    <EmbeddedResource Remove="Archived\**" />
     <EmbeddedResource Remove="Archive\**" />
+    <None Remove="Archived\**" />
     <None Remove="Archive\**" />
   </ItemGroup>
 
@@ -35,10 +39,6 @@
   <ItemGroup>
     <None Include="Views\Roles\Create.cshtml" />
     <None Include="Views\Roles\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Archive\" />
   </ItemGroup>
 
 </Project>
