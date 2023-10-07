@@ -1,0 +1,41 @@
+CREATE TABLE Users
+(
+    Id INT PRIMARY KEY IDENTITY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    DateOfBirth DATETIME NOT NULL,
+    Gender CHAR(10),
+    Biography VARCHAR(300),
+    EmailAddress VARCHAR(100) UNIQUE NOT NULL,
+    PasswordHash VARCHAR(255) NOT NULL,
+);
+
+CREATE TABLE Roles
+(
+    Id INT PRIMARY KEY IDENTITY,
+    RoleName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE UserRoles
+(
+    Id INT PRIMARY KEY IDENTITY,
+    UserId INT FOREIGN KEY REFERENCES Users(Id),
+    RoleId INT FOREIGN KEY REFERENCES Roles(Id)
+);
+
+CREATE TABLE Schedules
+(
+    Id INT PRIMARY KEY IDENTITY,
+    EventName VARCHAR(50) NOT NULL,
+    EventDate DATETIME NOT NULL,
+    EventLocation VARCHAR(100) NOT NULL,
+    EventDescription VARCHAR(300),
+    Coach INT FOREIGN KEY REFERENCES Users(Id)
+);
+
+CREATE TABLE Enrolments
+(
+    Id INT PRIMARY KEY IDENTITY,
+    ScheduleId INT FOREIGN KEY REFERENCES Schedules(Id),
+    UserId INT FOREIGN KEY REFERENCES Users(Id)
+);

@@ -1,0 +1,32 @@
+﻿@using System.Collections
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model AnyoneForTennis.Models.Schedules
+
+<div class="container">
+    <h1 class="text-center mb-5">Create Schedule</h1>
+
+    <form asp-action="CreateSchedule" method="post">
+        <div class="form-group">
+            <label for="EventName">Event Name:</label>
+            <input type="text" class="form-control form-control-lg rounded-pill shadow-sm" id="EventName" name="EventName" asp-for="EventName" required>
+        </div>
+        <div class="form-group">
+            <label for="Date">Event Date:</label>
+            <input type="date" class="form-control form-control-lg rounded-pill shadow-sm" id="Date" name="Date" asp-for="Date" required>
+        </div>
+        <div class="form-group">
+            <label for="Location">Event Location:</label>
+            <input type="text" class="form-control form-control-lg rounded-pill shadow-sm" id="Location" name="Location" asp-for="Location" required>
+        </div>
+        <div class="form-group">
+            <label for="id2">Select Coach:</label>
+            <span asp-validation-for="@Schedules.CoachId" class="text-danger"></span>
+            @Html.DropDownListFor(schedules => schedules.id2, (List<SelectListItem>)ViewData["CoachIds"], "Select an option", new { @class = "form-control form-control-lg rounded-pill shadow-sm" })
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary btn-block rounded-pill shadow-sm">Create Schedule</button>
+    </form>
+
+    <div class="mt-5 text-center">
+        <a asp-action="Index" class="btn btn-lg btn-secondary rounded-pill shadow-sm">Back</a>
+    </div>
+</div>
