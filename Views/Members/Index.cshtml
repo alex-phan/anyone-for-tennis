@@ -22,6 +22,11 @@
 				<td>@Html.DisplayFor(item => member.Id)</td>
 				<td>@Html.DisplayFor(item => member.FirstName)</td>
 				<td>@Html.DisplayFor(item => member.LastName)</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@member.Id">Edit</a> |
+					<a asp-action="Details" asp-route-id="@member.Id">Details</a> |
+					<a asp-action="Delete" asp-route-id="@member.Id">Delete</a>
+				</td>
 			</tr>
 		}
 	</tbody>

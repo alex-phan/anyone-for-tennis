@@ -22,22 +22,23 @@ namespace AnyoneForTennis.Controllers
             return View(roles);
         }
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
+      
+        //[HttpGet]
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> Create(IdentityRole model)
-        {
-            // Avoid duplicating roles.
-            if (!_roleManager.RoleExistsAsync(model.Name).GetAwaiter().GetResult())
-            {
-                _roleManager.CreateAsync(new IdentityRole(model.Name)).GetAwaiter().GetResult();
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> Create(IdentityRole model)
+        //{
+        //    // Avoid duplicating roles.
+        //    if (!_roleManager.RoleExistsAsync(model.Name).GetAwaiter().GetResult())
+        //    {
+        //        _roleManager.CreateAsync(new IdentityRole(model.Name)).GetAwaiter().GetResult();
+        //    }
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
     }
 }
