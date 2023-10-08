@@ -11,5 +11,6 @@ namespace AnyoneForTennis.Data
         {
         }
         public DbSet<AnyoneForTennis.Models.Schedule> Schedule { get; set; } = default!;
+        public DbSet<AnyoneForTennis.Models.Enrolment> Enrolment { get; set; } = default!;
     }
 }

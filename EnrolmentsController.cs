@@ -7,108 +7,90 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AnyoneForTennis.Data;
 using AnyoneForTennis.Models;
-using Microsoft.AspNetCore.Authorization;
 
-namespace AnyoneForTennis.Controllers
+namespace AnyoneForTennis
 {
-    [Authorize]
-    public class SchedulesController : Controller
+    public class EnrolmentsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public SchedulesController(ApplicationDbContext context)
+        public EnrolmentsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Schedules
-        [Authorize(Roles = "Admin, Member")]
+        // GET: Enrolments
         public async Task<IActionResult> Index()
         {
-            return _context.Schedule != null ?
-                        View(await _context.Schedule.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.Schedule'  is null.");
+              return _context.Enrolment != null ? 
+                          View(await _context.Enrolment.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Enrolment'  is null.");
         }
 
-        // View coach specific schedules.
-        [Authorize(Roles = "Admin, Coach")]
-        public async Task<IActionResult> CoachSchedules()
-        {
-            // Insert code here to show coach specific schedules.
-
-            return View();
-        }
-
-        // GET: Schedules/Details/5
+        // GET: Enrolments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Schedule == null)
+            if (id == null || _context.Enrolment == null)
             {
                 return NotFound();
             }
 
-            var schedule = await _context.Schedule
+            var enrolment = await _context.Enrolment
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (schedule == null)
+            if (enrolment == null)
             {
                 return NotFound();
             }
 
-            return View(schedule);
+            return View(enrolment);
         }
 
-        // GET: Schedules/Create
-        [Authorize(Roles = "Admin, Coach")]
+        // GET: Enrolments/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Schedules/Create
+        // POST: Enrolments/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Coach")]
-        public async Task<IActionResult> Create([Bind("Id,EventName,EventDate,EventLocation,EventDescription")] Schedule schedule)
+        public async Task<IActionResult> Create([Bind("Id")] Enrolment enrolment)
         {
-            // Insert code here to assign schedule to coach.
-
             if (ModelState.IsValid)
             {
-                _context.Add(schedule);
+                _context.Add(enrolment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(schedule);
+            return View(enrolment);
         }
 
-        // GET: Schedules/Edit/5
-        [Authorize(Roles = "Admin, Coach")]
+        // GET: Enrolments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Schedule == null)
+            if (id == null || _context.Enrolment == null)
             {
                 return NotFound();
             }
 
-            var schedule = await _context.Schedule.FindAsync(id);
-            if (schedule == null)
+            var enrolment = await _context.Enrolment.FindAsync(id);
+            if (enrolment == null)
             {
                 return NotFound();
             }
-            return View(schedule);
+            return View(enrolment);
         }
 
-        // POST: Schedules/Edit/5
+        // POST: Enrolments/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Coach")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EventName,EventDate,EventLocation,EventDescription")] Schedule schedule)
+        public async Task<IActionResult> Edit(int id, [Bind("Id")] Enrolment enrolment)
         {
-            if (id != schedule.Id)
+            if (id != enrolment.Id)
             {
                 return NotFound();
             }
@@ -117,12 +99,12 @@ namespace AnyoneForTennis.Controllers
             {
                 try
                 {
-                    _context.Update(schedule);
+                    _context.Update(enrolment);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ScheduleExists(schedule.Id))
+                    if (!EnrolmentExists(enrolment.Id))
                     {
                         return NotFound();
                     }
@@ -133,51 +115,49 @@ namespace AnyoneForTennis.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(schedule);
+            return View(enrolment);
         }
 
-        // GET: Schedules/Delete/5
-        [Authorize(Roles = "Admin, Coach")]
+        // GET: Enrolments/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Schedule == null)
+            if (id == null || _context.Enrolment == null)
             {
                 return NotFound();
             }
 
-            var schedule = await _context.Schedule
+            var enrolment = await _context.Enrolment
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (schedule == null)
+            if (enrolment == null)
             {
                 return NotFound();
             }
 
-            return View(schedule);
+            return View(enrolment);
         }
 
-        // POST: Schedules/Delete/5
+        // POST: Enrolments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Coach")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Schedule == null)
+            if (_context.Enrolment == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Schedule'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Enrolment'  is null.");
             }
-            var schedule = await _context.Schedule.FindAsync(id);
-            if (schedule != null)
+            var enrolment = await _context.Enrolment.FindAsync(id);
+            if (enrolment != null)
             {
-                _context.Schedule.Remove(schedule);
+                _context.Enrolment.Remove(enrolment);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ScheduleExists(int id)
+        private bool EnrolmentExists(int id)
         {
-            return (_context.Schedule?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Enrolment?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
