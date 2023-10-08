@@ -7,9 +7,16 @@
 
 <h1>Schedules</h1>
 
-<p class="my-3">
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.IsInRole("Admin") || User.IsInRole("Coach"))
+    {
+        <p class="my-3">
+            <a asp-action="Create" class="btn btn-primary">Create New</a>
+        </p>
+    }
+}
+
 <table class="table">
     <thead>
         <tr>

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AnyoneForTennis.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class MembersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

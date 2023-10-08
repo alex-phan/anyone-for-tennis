@@ -21,8 +21,10 @@ namespace AnyoneForTennis.Controllers
             _context = context;
         }
 
+        // Temporarily, coach is given authorization to view the schedules page to create schedules.
+        // Coach authorization to be removed once coach specific upcoming schedule list is set up.
         // GET: Schedules
-        [Authorize(Roles = "Admin, Member")]
+        [Authorize(Roles = "Admin, Member, Coach")]
         public async Task<IActionResult> Index()
         {
             return _context.Schedule != null ?
