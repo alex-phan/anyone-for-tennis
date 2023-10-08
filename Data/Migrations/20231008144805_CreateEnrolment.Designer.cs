@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AnyoneForTennis.Data.Migrations
+namespace AnyoneForTennis.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231007152703_AssignUserRoles")]
-    partial class AssignUserRoles
+    [Migration("20231008144805_CreateEnrolment")]
+    partial class CreateEnrolment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,9 @@ namespace AnyoneForTennis.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<int?>("EnrolmentId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -99,6 +102,8 @@ namespace AnyoneForTennis.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EnrolmentId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -108,6 +113,61 @@ namespace AnyoneForTennis.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("AnyoneForTennis.Models.Enrolment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CoachId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ScheduleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoachId");
+
+                    b.HasIndex("ScheduleId");
+
+                    b.ToTable("Enrolment");
+                });
+
+            modelBuilder.Entity("AnyoneForTennis.Models.Schedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("EventDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EventDescription")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("EventLocation")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("EventName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Schedule");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -247,6 +307,30 @@ namespace AnyoneForTennis.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AnyoneForTennis.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("AnyoneForTennis.Models.Enrolment", null)
+                        .WithMany("Enrolments")
+                        .HasForeignKey("EnrolmentId");
+                });
+
+            modelBuilder.Entity("AnyoneForTennis.Models.Enrolment", b =>
+                {
+                    b.HasOne("AnyoneForTennis.Models.ApplicationUser", "Coach")
+                        .WithMany()
+                        .HasForeignKey("CoachId");
+
+                    b.HasOne("AnyoneForTennis.Models.Schedule", "Schedule")
+                        .WithMany()
+                        .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Coach");
+
+                    b.Navigation("Schedule");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -296,6 +380,11 @@ namespace AnyoneForTennis.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AnyoneForTennis.Models.Enrolment", b =>
+                {
+                    b.Navigation("Enrolments");
                 });
 #pragma warning restore 612, 618
         }

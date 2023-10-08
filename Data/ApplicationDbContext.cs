@@ -10,6 +10,14 @@ namespace AnyoneForTennis.Data
             : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+
         public DbSet<AnyoneForTennis.Models.Schedule> Schedule { get; set; } = default!;
+
+        public DbSet<AnyoneForTennis.Models.Enrolment> Enrolment { get; set; } = default!;
     }
 }
