@@ -59,7 +59,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Seed the default admin account before startup.
+// Seed the default admin , members and coaches accounts.
 using (var scope = app.Services.CreateScope())
 {
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
@@ -84,6 +84,58 @@ using (var scope = app.Services.CreateScope())
         // Assign the new user to the admin role.
         await userManager.AddToRoleAsync(user, "Admin");
     }
-}
 
+    string role = "Member";
+
+    for (int i = 1; i <= 10; i++)
+    {
+         name = $"Member{i}"; // Change the member's name
+         email = $"member{i}@anyonefortennis.com"; // Change the email
+         password = $"Member{i}123!"; // Change the password
+
+        // Check if the member already exists to avoid recreating it upon startup.
+        if (await userManager.FindByEmailAsync(email) == null)
+        {
+            // Create a new user.
+            var user = new ApplicationUser();
+            user.FirstName = name;
+            user.LastName = name;
+            user.UserName = email;
+            user.Email = email;
+            user.EmailConfirmed = true;
+
+            await userManager.CreateAsync(user, password);
+
+            // Assign the new user to the "Members" role.
+            await userManager.AddToRoleAsync(user, role);
+        }
+    }
+
+    role = "Coach";
+    for (int i = 1; i <= 10; i++)
+    {
+        name = $"Coach {i}"; // Change the Coaches name
+        email = $"coach{i}@anyonefortennis.com"; // Change the email
+        password = $"Coach{i}123!"; // Change the password
+
+        // Check if Coach already exists to avoid recreating it upon startup.
+        if (await userManager.FindByEmailAsync(email) == null)
+        {
+            // Create a new user.
+            var user = new ApplicationUser();
+            user.FirstName = name;
+            user.LastName = name;
+            user.UserName = email;
+            user.Email = email;
+            user.EmailConfirmed = true;
+            user.Biography = $"I am a coach with {i} years of experience.";
+            await userManager.CreateAsync(user, password);
+
+            // Assign the new user to the "Coaches" role.
+            await userManager.AddToRoleAsync(user, role);
+        }
+    }
+
+}
+AppDbInitializer.Seed(app);
 app.Run();
