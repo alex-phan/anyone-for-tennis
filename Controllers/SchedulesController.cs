@@ -30,14 +30,7 @@ namespace AnyoneForTennis.Controllers
                         Problem("Entity set 'ApplicationDbContext.Schedule'  is null.");
         }
 
-        // View coach specific schedules.
-        [Authorize(Roles = "Admin, Coach")]
-        public async Task<IActionResult> CoachSchedules()
-        {
-            // Insert code here to show coach specific schedules.
-
-            return View();
-        }
+        // Insert code here to show coach specific schedules.
 
         // GET: Schedules/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -69,11 +62,8 @@ namespace AnyoneForTennis.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Coach")]
         public async Task<IActionResult> Create([Bind("Id,EventName,EventDate,EventLocation,EventDescription")] Schedule schedule)
         {
-            // Insert code here to assign schedule to coach.
-
             if (ModelState.IsValid)
             {
                 _context.Add(schedule);
