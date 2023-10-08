@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AnyoneForTennis.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -14,7 +14,8 @@ namespace AnyoneForTennis.Controllers
               _roleManager = roleManager;
         }
 
-        // Display available roles.
+        // View all roles.
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var roles = _roleManager.Roles;

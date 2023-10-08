@@ -1,11 +1,13 @@
 ﻿using AnyoneForTennis.Data;
 using AnyoneForTennis.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AnyoneForTennis.Controllers
 {
+	[Authorize]
     public class CoachesController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -17,7 +19,8 @@ namespace AnyoneForTennis.Controllers
 			_context = context;
         }
 
-		// GET: Coaches
+		// View all coaches.
+		[Authorize(Roles = "Admin, Member")]
 		public IActionResult Index()
         {
             var members = _userManager.GetUsersInRoleAsync("Coach").Result;
@@ -25,7 +28,7 @@ namespace AnyoneForTennis.Controllers
             return View(members);
         }
 
-		// GET: Coach Details
+		// View coach details.
 		//public async Task<IActionResult> Details(int? id)
 		//{
 		//	if (id == null || _context.Schedule == null)

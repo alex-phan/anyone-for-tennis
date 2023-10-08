@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AnyoneForTennis.Controllers
 {
+    [Authorize]
     public class SchedulesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,12 +22,15 @@ namespace AnyoneForTennis.Controllers
         }
 
         // GET: Schedules
+        [Authorize(Roles = "Admin, Member")]
         public async Task<IActionResult> Index()
         {
             return _context.Schedule != null ?
                         View(await _context.Schedule.ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.Schedule'  is null.");
         }
+
+        // Insert code here to show coach specific schedules.
 
         // GET: Schedules/Details/5
         public async Task<IActionResult> Details(int? id)

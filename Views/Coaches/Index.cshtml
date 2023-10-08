@@ -22,25 +22,7 @@
 				<td>@Html.DisplayFor(item => coach.FirstName)</td>
 				<td>@Html.DisplayFor(item => coach.LastName)</td>
 				<td>
-					@if (User.Identity.IsAuthenticated)
-					{
-						if (User.IsInRole("Admin"))
-						{
-							<a asp-action="Edit" asp-route-id="@coach.Id">Edit</a>
-							<span>|</span>
-							<a asp-action = "Details" asp-route-id="@coach.Id">Details</a>
-							<span>|</span>
-							<a asp-action = "Delete" asp-route-id="@coach.Id">Delete</a>
-						}
-						else
-						{
-							<a asp-action="Details" asp-route-id="@coach.Id">Details</a>
-						}
-					}
-					else
-					{
-						<a asp-action="Details" asp-route-id="@coach.Id">Details</a>
-					}
+					<a asp-action="Details" asp-route-id="@coach.Id">Details</a>
 				</td>
 			</tr>
 		}
